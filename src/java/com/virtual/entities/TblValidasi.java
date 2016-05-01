@@ -33,7 +33,12 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblValidasi.findByIdThread", query = "SELECT t FROM TblValidasi t WHERE t.idThread = :idThread"),
     @NamedQuery(name = "TblValidasi.findByIdValidasi", query = "SELECT t FROM TblValidasi t WHERE t.idValidasi = :idValidasi"),
     @NamedQuery(name = "TblValidasi.findByStatusTransaksi", query = "SELECT t FROM TblValidasi t WHERE t.statusTransaksi = :statusTransaksi"),
-    @NamedQuery(name = "TblValidasi.findByCreatedDate", query = "SELECT t FROM TblValidasi t WHERE t.createdDate = :createdDate")})
+    @NamedQuery(name = "TblValidasi.findByCreatedDate", query = "SELECT t FROM TblValidasi t WHERE t.createdDate = :createdDate"),
+    @NamedQuery(name = "TblValidasi.findByNama", query = "SELECT t FROM TblValidasi t WHERE t.nama = :nama"),
+    @NamedQuery(name = "TblValidasi.findByIsUserValid", query = "SELECT t FROM TblValidasi t WHERE t.isUserValid = :isUserValid"),
+    @NamedQuery(name = "TblValidasi.findByElapsedTimeValidation", query = "SELECT t FROM TblValidasi t WHERE t.elapsedTimeValidation = :elapsedTimeValidation"),
+    @NamedQuery(name = "TblValidasi.findByElapsedTimeBank", query = "SELECT t FROM TblValidasi t WHERE t.elapsedTimeBank = :elapsedTimeBank"),
+    @NamedQuery(name = "TblValidasi.findByElapsedTimeKurir", query = "SELECT t FROM TblValidasi t WHERE t.elapsedTimeKurir = :elapsedTimeKurir")})
 public class TblValidasi implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -55,6 +60,16 @@ public class TblValidasi implements Serializable {
     @Column(name = "CREATED_DATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
+    @Column(name = "NAMA")
+    private String nama;
+    @Column(name = "IS_USER_VALID")
+    private String isUserValid;
+    @Column(name = "ELAPSED_TIME_VALIDATION")
+    private String elapsedTimeValidation;
+    @Column(name = "ELAPSED_TIME_BANK")
+    private String elapsedTimeBank;
+    @Column(name = "ELAPSED_TIME_KURIR")
+    private String elapsedTimeKurir;
 
     public TblValidasi() {
     }
@@ -109,6 +124,46 @@ public class TblValidasi implements Serializable {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+    public void setNama(String nama) {
+        this.nama = nama;
+    }
+
+    public String getIsUserValid() {
+        return isUserValid;
+    }
+
+    public void setIsUserValid(String isUserValid) {
+        this.isUserValid = isUserValid;
+    }
+
+    public String getElapsedTimeValidation() {
+        return elapsedTimeValidation;
+    }
+
+    public void setElapsedTimeValidation(String elapsedTimeValidation) {
+        this.elapsedTimeValidation = elapsedTimeValidation;
+    }
+
+    public String getElapsedTimeBank() {
+        return elapsedTimeBank;
+    }
+
+    public void setElapsedTimeBank(String elapsedTimeBank) {
+        this.elapsedTimeBank = elapsedTimeBank;
+    }
+
+    public String getElapsedTimeKurir() {
+        return elapsedTimeKurir;
+    }
+
+    public void setElapsedTimeKurir(String elapsedTimeKurir) {
+        this.elapsedTimeKurir = elapsedTimeKurir;
     }
 
     @Override

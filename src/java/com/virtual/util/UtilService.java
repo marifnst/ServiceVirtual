@@ -49,7 +49,7 @@ public class UtilService {
             while (data != null) {
                 String key = data.split("\\=")[0];
                 String value = data.split("\\=")[1];
-                if (key.equalsIgnoreCase("service.core")) {
+                if (key.equalsIgnoreCase("service.core.bank")) {
                     endpointAddress = value + "services/transaksi_bank";
                 }
                 data = br.readLine();
@@ -76,7 +76,7 @@ public class UtilService {
             while (data != null) {
                 String key = data.split("\\=")[0];
                 String value = data.split("\\=")[1];
-                if (key.equalsIgnoreCase("service.core")) {
+                if (key.equalsIgnoreCase("service.core.kurir")) {
                     endpointAddress = value + "services/transaksi_kurir";
                 }
                 data = br.readLine();

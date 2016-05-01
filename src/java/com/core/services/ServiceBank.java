@@ -13,5 +13,5 @@ import javax.jws.WebService;
  */
 @WebService
 public interface ServiceBank {
-    String bankTransaction(Integer noSimulasi, String noKartuKredit, String idValidasi);
+    String bankTransaction(Integer noSimulasi, String nama, String noKartuKredit, String idValidasi);
 }

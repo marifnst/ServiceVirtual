@@ -33,9 +33,9 @@ public class Engine4 {
     private int totalData;
     private UtilDatabase localUtilDatabase;
 
-    public String process(String threadId) {
+    public String process(String nama, String isUserValid, String estimatedTime, String threadId) {
         localUtilDatabase = new UtilDatabase();
-        String idValidasi = insertValidasi(threadId);
+        String idValidasi = insertValidasi(nama, isUserValid, estimatedTime, threadId);
         return idValidasi;
     }
 
@@ -77,12 +77,15 @@ public class Engine4 {
 //        return tblUserResult.getNoKartuKredit();
 //    }
 
-    public String insertValidasi(String threadId) {
+    public String insertValidasi(String nama, String isUserValid, String estimatedTime, String threadId) {
         String idValidasi = UUID.randomUUID().toString();
-
+        
         TblValidasi tblValidasi = new TblValidasi();
         tblValidasi.setIdThread(threadId);
         tblValidasi.setIdValidasi(idValidasi);
+        tblValidasi.setNama(nama);
+        tblValidasi.setIsUserValid(isUserValid);
+        tblValidasi.setElapsedTimeValidation(estimatedTime);
         tblValidasi.setStatusTransaksi("INVALID_PASSWORD");
         tblValidasi.setCreatedDate(new Date());
 
@@ -95,6 +98,10 @@ public class Engine4 {
         localUtilDatabase.getEntityManager().close();
 
         return "INVALID_PASSWORD";
+    }
+    
+    public void userInvalidSimulator() {
+        
     }
 
 }

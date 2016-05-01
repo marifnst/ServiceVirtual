@@ -33,25 +33,25 @@ public class Engine1 {
     private int totalData;
     private UtilDatabase localUtilDatabase;
 
-    public String process(String threadId) {
+    public String process(String nama, String isUserValid, String estimatedTime, String threadId) {
         localUtilDatabase = new UtilDatabase();
-        String idValidasi = insertValidasi(threadId);
+        String idValidasi = insertValidasi(nama, isUserValid, estimatedTime, threadId);
         return idValidasi;
     }
 
-    public String transaksiBank(String idValidasi) {
+    public String transaksiBank(String idValidasi, String nama, String noKartuKredit) {
         String result = "FAILED";
 //        Service service = Service.create(SERVICE_NAME);
 //        String endpointAddress = "http://localhost:8084/ServiceCore/services/transaksi_bank";
 //        service.addPort(PORT_NAME, SOAPBinding.SOAP11HTTP_BINDING, endpointAddress);
 
-        int id = UtilGeneral.getInstance().getUserId();
-        String noKartuKredit = getUserCreditCard(id);
+//        int id = UtilGeneral.getInstance().getUserId();
+//        String noKartuKredit = getUserCreditCard(id);
         
         UtilService us = new UtilService();
         us.openService();
         ServiceBank sb = us.getService().getPort(ServiceBank.class);
-        result = sb.bankTransaction(1, noKartuKredit, idValidasi);
+        result = sb.bankTransaction(1, nama, noKartuKredit, idValidasi);
         return result;
     }
 
@@ -77,12 +77,15 @@ public class Engine1 {
         return tblUserResult.getNoKartuKredit();
     }
 
-    public String insertValidasi(String threadId) {
+    public String insertValidasi(String nama, String isUserValid, String estimatedTime, String threadId) {
         String idValidasi = UUID.randomUUID().toString();
 
         TblValidasi tblValidasi = new TblValidasi();
         tblValidasi.setIdThread(threadId);
         tblValidasi.setIdValidasi(idValidasi);
+        tblValidasi.setNama(nama);
+        tblValidasi.setIsUserValid(isUserValid);
+        tblValidasi.setElapsedTimeValidation(estimatedTime);
         tblValidasi.setStatusTransaksi("SUCCESS");
         tblValidasi.setCreatedDate(new Date());
 
@@ -96,5 +99,10 @@ public class Engine1 {
 
         return idValidasi;
     }
+    
+//    public static void main(String args[]) {
+//        Engine1 e1 = new Engine1();
+//        e1.process("asasa");
+//    }
 
 }
