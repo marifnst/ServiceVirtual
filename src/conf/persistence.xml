@@ -4,6 +4,7 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>com.virtual.entities.TblValidasi</class>
     <class>com.virtual.entities.TblUser</class>
+    <class>com.virtual.entities.TblBuku</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3307/lawclient?zeroDateTimeBehavior=convertToNull"/>

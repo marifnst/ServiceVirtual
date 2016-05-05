@@ -27,23 +27,27 @@ public class ServiceValidationImpl implements ServiceValidation {
                     String nama = ug.getRandomUser();
                     String password = ug.getUserPassword(nama);
                     String noKartuKredit = ug.getNoKartuKredit(nama);
-                    
+
                     // hitung elapsed time validasi
                     startTime = System.nanoTime();
                     String isUserValid = ug.checkUser(nama, password);
-                    estimatedTime = System.nanoTime() - startTime;
-                    String idTransaksi = e1.process(nama, isUserValid, String.valueOf(estimatedTime), threadId);
-                    // selesai hitung elapsed time validasi
-                    
-                    // hitung elapsed time dengan bank
-                    startTime = System.nanoTime();
-                    String idTransaksiBank = e1.transaksiBank(idTransaksi, nama, noKartuKredit);
-                    estimatedTime = System.nanoTime() - startTime;
-                    ug.setElapsedTimeBank(idTransaksi, String.valueOf(estimatedTime));
-                    // selesai hitung elapsed time dengan bank
-                    
-                    e1.transaksiKurir(idTransaksiBank);
-                    result = "SUCCESS";
+                    if (isUserValid.equals("1")) {
+                        estimatedTime = System.nanoTime() - startTime;
+                        String idTransaksi = e1.process(nama, isUserValid, String.valueOf(estimatedTime), threadId);
+                        // selesai hitung elapsed time validasi
+
+                        // hitung elapsed time dengan bank
+                        startTime = System.nanoTime();
+                        String idTransaksiBank = e1.transaksiBank(idTransaksi, nama, noKartuKredit);
+                        estimatedTime = System.nanoTime() - startTime;
+                        ug.setElapsedTimeBank(idTransaksi, String.valueOf(estimatedTime));
+                        // selesai hitung elapsed time dengan bank
+
+                        e1.transaksiKurir(idTransaksiBank);
+                        result = "SUCCESS";
+                    } else {
+                        result = "INVALID_PASSWORD";
+                    }
                     break;
                 }
                 case 2: {
@@ -52,21 +56,25 @@ public class ServiceValidationImpl implements ServiceValidation {
                     String nama = ug.getRandomUser();
                     String password = ug.getUserPassword(nama);
                     String noKartuKredit = "ERROR_KARTU_KREDIT";
-                    
+
                     // hitung elapsed time validasi
                     startTime = System.nanoTime();
                     String isUserValid = ug.checkUser(nama, password);
-                    estimatedTime = System.nanoTime() - startTime;
-                    String idTransaksi = e2.process(nama, isUserValid, String.valueOf(estimatedTime), threadId);
-                    // selesai hitung elapsed time validasi
+                    if (isUserValid.equals("1")) {
+                        estimatedTime = System.nanoTime() - startTime;
+                        String idTransaksi = e2.process(nama, isUserValid, String.valueOf(estimatedTime), threadId);
+                        // selesai hitung elapsed time validasi
 
-                    // hitung elapsed time dengan bank
-                    startTime = System.nanoTime();
-                    String idTransaksiBank = e2.transaksiBank(idTransaksi, nama, noKartuKredit);
-                    estimatedTime = System.nanoTime() - startTime;
-                    ug.setElapsedTimeBank(idTransaksi, String.valueOf(estimatedTime));
-                    // selesai hitung elapsed time dengan bank
-                    result = "SUCCESS";
+                        // hitung elapsed time dengan bank
+                        startTime = System.nanoTime();
+                        String idTransaksiBank = e2.transaksiBank(idTransaksi, nama, noKartuKredit);
+                        estimatedTime = System.nanoTime() - startTime;
+                        ug.setElapsedTimeBank(idTransaksi, String.valueOf(estimatedTime));
+                        // selesai hitung elapsed time dengan bank
+                        result = "SUCCESS";
+                    } else {
+                        result = "Invalid Password";
+                    }
                     break;
                 }
                 case 3: {
@@ -79,18 +87,22 @@ public class ServiceValidationImpl implements ServiceValidation {
                     // hitung elapsed time validasi
                     startTime = System.nanoTime();
                     String isUserValid = ug.checkUser(nama, password);
-                    estimatedTime = System.nanoTime() - startTime;
-                    String idTransaksi = e3.process(nama, isUserValid, String.valueOf(estimatedTime), threadId);
-                    // selesai hitung elapsed time validasi
+                    if (isUserValid.equals("1")) {
+                        estimatedTime = System.nanoTime() - startTime;
+                        String idTransaksi = e3.process(nama, isUserValid, String.valueOf(estimatedTime), threadId);
+                        // selesai hitung elapsed time validasi
 
-                    // hitung elapsed time dengan bank
-                    startTime = System.nanoTime();
-                    String idTransaksiBank = e3.transaksiBank(idTransaksi, nama, noKartuKredit);
-                    estimatedTime = System.nanoTime() - startTime;
-                    ug.setElapsedTimeBank(idTransaksi, String.valueOf(estimatedTime));
-                    // selesai hitung elapsed time dengan bank
-                    
-                    result = e3.transaksiKurir(idTransaksiBank);
+                        // hitung elapsed time dengan bank
+                        startTime = System.nanoTime();
+                        String idTransaksiBank = e3.transaksiBank(idTransaksi, nama, noKartuKredit);
+                        estimatedTime = System.nanoTime() - startTime;
+                        ug.setElapsedTimeBank(idTransaksi, String.valueOf(estimatedTime));
+                        // selesai hitung elapsed time dengan bank
+
+                        result = e3.transaksiKurir(idTransaksiBank);
+                    } else {
+                        result = "Invalid Password";
+                    }
                     break;
                 }
                 case 4:

@@ -47,8 +47,16 @@ public class UtilGeneral {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             String password = "password_" + username.split("\\_")[1];
+            md.update(password.getBytes());
+            byte byteData[] = md.digest();
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < byteData.length; i++) {
+                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
 //            System.out.println(password);
-            result = password.getBytes().toString();
+//            result = password.getBytes().toString();
+            result = sb.toString();
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(UtilGeneral.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -83,6 +91,14 @@ public class UtilGeneral {
 
     public void setElapsedTimeBank(String validationId, String elapsedTime) {
         String query = "UPDATE TBL_VALIDASI SET ELAPSED_TIME_BANK = '" + elapsedTime + "' WHERE ID_VALIDASI ='" + validationId + "'";
+        UtilDatabase utilDatabase = new UtilDatabase();
+        utilDatabase.openConnectionNative();
+        utilDatabase.executeUpdate(query);
+        utilDatabase.closeConnection();
+    }
+
+    public void updateStokBuku(String idBuku) {
+        String query = "UPDATE TBL_BUKU SET STOK = STOK - 1 WHERE ID ='" + idBuku + "'";
         UtilDatabase utilDatabase = new UtilDatabase();
         utilDatabase.openConnectionNative();
         utilDatabase.executeUpdate(query);
