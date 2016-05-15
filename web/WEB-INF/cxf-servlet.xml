@@ -37,4 +37,10 @@ http://cxf.apache.org/schemas/jaxws.xsd">
             <bean class="com.virtual.services.impl.ServiceValidationRealImpl" />
         </jaxws:serviceBean>
     </jaxws:server>
+    
+    <jaxws:server id="jaxwsServiceSingle" serviceClass="com.virtual.services.ServiceValidationSingle" address="/validation_single">
+        <jaxws:serviceBean>
+            <bean class="com.virtual.services.impl.ServiceValidationSingleImpl" />
+        </jaxws:serviceBean>
+    </jaxws:server>
 </beans>
