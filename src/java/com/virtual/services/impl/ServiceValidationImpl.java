@@ -33,7 +33,7 @@ public class ServiceValidationImpl implements ServiceValidation {
                     String isUserValid = ug.checkUser(nama, password);
                     if (isUserValid.equals("1")) {
                         estimatedTime = System.nanoTime() - startTime;
-                        String idTransaksi = e1.process(nama, isUserValid, String.valueOf(estimatedTime), threadId);
+                        String idTransaksi = e1.process(nama, isUserValid, String.valueOf(estimatedTime), threadId, noSimulasi);
                         // selesai hitung elapsed time validasi
 
                         // hitung elapsed time dengan bank
@@ -43,7 +43,12 @@ public class ServiceValidationImpl implements ServiceValidation {
                         ug.setElapsedTimeBank(idTransaksi, String.valueOf(estimatedTime));
                         // selesai hitung elapsed time dengan bank
 
+                        // hitung elapsed time dengan kurir
+                        startTime = System.nanoTime();
                         e1.transaksiKurir(idTransaksiBank);
+                        estimatedTime = System.nanoTime() - startTime;
+                        ug.setElapsedTimeKurir(idTransaksi, String.valueOf(estimatedTime));
+                        // selesai hitung elapsed time dengan kurir
                         result = "SUCCESS";
                     } else {
                         result = "INVALID_PASSWORD";
@@ -62,7 +67,7 @@ public class ServiceValidationImpl implements ServiceValidation {
                     String isUserValid = ug.checkUser(nama, password);
                     if (isUserValid.equals("1")) {
                         estimatedTime = System.nanoTime() - startTime;
-                        String idTransaksi = e2.process(nama, isUserValid, String.valueOf(estimatedTime), threadId);
+                        String idTransaksi = e2.process(nama, isUserValid, String.valueOf(estimatedTime), threadId, noSimulasi);
                         // selesai hitung elapsed time validasi
 
                         // hitung elapsed time dengan bank
@@ -89,7 +94,7 @@ public class ServiceValidationImpl implements ServiceValidation {
                     String isUserValid = ug.checkUser(nama, password);
                     if (isUserValid.equals("1")) {
                         estimatedTime = System.nanoTime() - startTime;
-                        String idTransaksi = e3.process(nama, isUserValid, String.valueOf(estimatedTime), threadId);
+                        String idTransaksi = e3.process(nama, isUserValid, String.valueOf(estimatedTime), threadId, noSimulasi);
                         // selesai hitung elapsed time validasi
 
                         // hitung elapsed time dengan bank
@@ -99,7 +104,13 @@ public class ServiceValidationImpl implements ServiceValidation {
                         ug.setElapsedTimeBank(idTransaksi, String.valueOf(estimatedTime));
                         // selesai hitung elapsed time dengan bank
 
+                        // hitung elapsed time dengan kurir
+                        startTime = System.nanoTime();
+//                        e1.transaksiKurir(idTransaksiBank);
                         result = e3.transaksiKurir(idTransaksiBank);
+                        estimatedTime = System.nanoTime() - startTime;
+                        ug.setElapsedTimeKurir(idTransaksi, String.valueOf(estimatedTime));
+                        // selesai hitung elapsed time dengan kurir
                     } else {
                         result = "Invalid Password";
                     }
@@ -114,7 +125,7 @@ public class ServiceValidationImpl implements ServiceValidation {
                     startTime = System.nanoTime();
                     String isUserValid = ug.checkUser(nama, "");
                     estimatedTime = System.nanoTime() - startTime;
-                    String idTransaksi = e4.process(nama, isUserValid, String.valueOf(estimatedTime), threadId);
+                    String idTransaksi = e4.process(nama, isUserValid, String.valueOf(estimatedTime), threadId, noSimulasi);
                     // selesai hitung elapsed time validasi
                     break;
                 default:

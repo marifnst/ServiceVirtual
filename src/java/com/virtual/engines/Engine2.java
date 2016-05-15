@@ -29,9 +29,9 @@ public class Engine2 {
     private int totalData;
     private UtilDatabase localUtilDatabase;
 
-    public String process(String nama, String isUserValid, String estimatedTime, String threadId) {
+    public String process(String nama, String isUserValid, String estimatedTime, String threadId, Integer noSimulasi) {
         localUtilDatabase = new UtilDatabase();
-        String idValidasi = insertValidasi(nama, isUserValid, estimatedTime, threadId);
+        String idValidasi = insertValidasi(nama, isUserValid, estimatedTime, threadId, noSimulasi);
         return idValidasi;
     }
 
@@ -63,7 +63,7 @@ public class Engine2 {
         return tblUserResult.getNoKartuKredit();
     }
 
-    public String insertValidasi(String nama, String isUserValid, String estimatedTime, String threadId) {
+    public String insertValidasi(String nama, String isUserValid, String estimatedTime, String threadId, Integer noSImulasi) {
         String idValidasi = UUID.randomUUID().toString();
 
         TblValidasi tblValidasi = new TblValidasi();
@@ -74,6 +74,7 @@ public class Engine2 {
         tblValidasi.setElapsedTimeValidation(estimatedTime);
         tblValidasi.setStatusTransaksi("SUCCESS");
         tblValidasi.setCreatedDate(new Date());
+        tblValidasi.setNoSimulasi(noSImulasi);
 
         localUtilDatabase.openConnection();
         EntityManager em = localUtilDatabase.getEntityManager();

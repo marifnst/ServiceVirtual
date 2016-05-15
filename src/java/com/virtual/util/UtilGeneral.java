@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 public class UtilGeneral {
 
     private static UtilGeneral utilGeneral;
+    private UtilDatabase localUtilDatabase;
 
     public static UtilGeneral getInstance() {
         if (utilGeneral == null) {
@@ -97,12 +98,29 @@ public class UtilGeneral {
         utilDatabase.closeConnection();
     }
 
+    public void setElapsedTimeKurir(String validationId, String elapsedTime) {
+        String query = "UPDATE TBL_VALIDASI SET ELAPSED_TIME_KURIR = '" + elapsedTime + "' WHERE ID_VALIDASI ='" + validationId + "'";
+        UtilDatabase utilDatabase = new UtilDatabase();
+        utilDatabase.openConnectionNative();
+        utilDatabase.executeUpdate(query);
+        utilDatabase.closeConnection();
+    }
+
     public void updateStokBuku(String idBuku) {
         String query = "UPDATE TBL_BUKU SET STOK = STOK - 1 WHERE ID ='" + idBuku + "'";
         UtilDatabase utilDatabase = new UtilDatabase();
         utilDatabase.openConnectionNative();
         utilDatabase.executeUpdate(query);
         utilDatabase.closeConnection();
+    }
+
+    public String getNoKartuKreditNew(String user, String noKartuKredit) {
+        String query = "SELECT COUNT(1) IS_AVAILABLE FROM TBL_USER WHERE NAMA = '" + user + "' AND NO_KARTU_KREDIT = '" + noKartuKredit + "'";
+        UtilDatabase utilDatabase = new UtilDatabase();
+        utilDatabase.openConnectionNative();
+        String result = utilDatabase.executeQuery(query);
+        utilDatabase.closeConnection();
+        return result;
     }
 
     public static void main(String args[]) {

@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "TblValidasi.findByIsUserValid", query = "SELECT t FROM TblValidasi t WHERE t.isUserValid = :isUserValid"),
     @NamedQuery(name = "TblValidasi.findByElapsedTimeValidation", query = "SELECT t FROM TblValidasi t WHERE t.elapsedTimeValidation = :elapsedTimeValidation"),
     @NamedQuery(name = "TblValidasi.findByElapsedTimeBank", query = "SELECT t FROM TblValidasi t WHERE t.elapsedTimeBank = :elapsedTimeBank"),
-    @NamedQuery(name = "TblValidasi.findByElapsedTimeKurir", query = "SELECT t FROM TblValidasi t WHERE t.elapsedTimeKurir = :elapsedTimeKurir")})
+    @NamedQuery(name = "TblValidasi.findByElapsedTimeKurir", query = "SELECT t FROM TblValidasi t WHERE t.elapsedTimeKurir = :elapsedTimeKurir"),
+    @NamedQuery(name = "TblValidasi.findByNoSimulasi", query = "SELECT t FROM TblValidasi t WHERE t.noSimulasi = :noSimulasi")})
 public class TblValidasi implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -70,6 +71,8 @@ public class TblValidasi implements Serializable {
     private String elapsedTimeBank;
     @Column(name = "ELAPSED_TIME_KURIR")
     private String elapsedTimeKurir;
+    @Column(name = "NO_SIMULASI")
+    private Integer noSimulasi;
 
     public TblValidasi() {
     }
@@ -164,6 +167,14 @@ public class TblValidasi implements Serializable {
 
     public void setElapsedTimeKurir(String elapsedTimeKurir) {
         this.elapsedTimeKurir = elapsedTimeKurir;
+    }
+
+    public Integer getNoSimulasi() {
+        return noSimulasi;
+    }
+
+    public void setNoSimulasi(Integer noSimulasi) {
+        this.noSimulasi = noSimulasi;
     }
 
     @Override

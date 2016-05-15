@@ -9,17 +9,13 @@ import com.core.services.ServiceBank;
 import com.core.services.ServiceKurir;
 import com.virtual.entities.TblUser;
 import com.virtual.entities.TblValidasi;
-import com.virtual.services.ServiceValidation;
 import com.virtual.util.UtilDatabase;
-import com.virtual.util.UtilGeneral;
 import com.virtual.util.UtilService;
 import java.util.Date;
 import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
-import javax.xml.ws.soap.SOAPBinding;
 
 /**
  *
@@ -33,9 +29,9 @@ public class Engine3 {
     private int totalData;
     private UtilDatabase localUtilDatabase;
 
-    public String process(String nama, String isUserValid, String estimatedTime, String threadId) {
+    public String process(String nama, String isUserValid, String estimatedTime, String threadId, Integer noSimulasi) {
         localUtilDatabase = new UtilDatabase();
-        String idValidasi = insertValidasi(nama, isUserValid, estimatedTime, threadId);
+        String idValidasi = insertValidasi(nama, isUserValid, estimatedTime, threadId, noSimulasi);
         return idValidasi;
     }
 
@@ -76,7 +72,7 @@ public class Engine3 {
         return tblUserResult.getNoKartuKredit();
     }
 
-    public String insertValidasi(String nama, String isUserValid, String estimatedTime, String threadId) {
+    public String insertValidasi(String nama, String isUserValid, String estimatedTime, String threadId, Integer noSimulasi) {
         String idValidasi = UUID.randomUUID().toString();
 
         TblValidasi tblValidasi = new TblValidasi();
@@ -87,6 +83,7 @@ public class Engine3 {
         tblValidasi.setElapsedTimeValidation(estimatedTime);
         tblValidasi.setStatusTransaksi("SUCCESS");
         tblValidasi.setCreatedDate(new Date());
+        tblValidasi.setNoSimulasi(noSimulasi);
 
         localUtilDatabase.openConnection();
         EntityManager em = localUtilDatabase.getEntityManager();
